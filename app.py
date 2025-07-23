@@ -2,7 +2,6 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
-# Lista simulada de muebles
 muebles = [
     {"id": 1, "nombre": "Silla", "precio": 30.0},
     {"id": 2, "nombre": "Mesa", "precio": 100.0},
@@ -11,18 +10,18 @@ muebles = [
     {"id": 5, "nombre": "Sala estilo americano", "precio": 460.0}
 ]
 
-# Obtener todos los muebles
+# Lista muebles
 @app.route('/muebles', methods=['GET'])
 def obtener_muebles():
     return jsonify(muebles)
 
-# Obtener un mueble por ID
+# Mueble por ID
 @app.route('/muebles/<int:id>', methods=['GET'])
 def obtener_mueble(id):
     mueble = next((m for m in muebles if m["id"] == id), None)
     return jsonify(mueble) if mueble else ("No encontrado", 404)
 
-# Agregar un nuevo mueble
+# Agregar 
 @app.route('/muebles', methods=['POST'])
 def agregar_mueble():
     nuevo = request.get_json()
@@ -30,7 +29,7 @@ def agregar_mueble():
     muebles.append(nuevo)
     return jsonify(nuevo), 201
 
-# Actualizar un mueble existente
+# Actualizar 
 @app.route('/muebles/<int:id>', methods=['PUT'])
 def actualizar_mueble(id):
     mueble = next((m for m in muebles if m["id"] == id), None)
@@ -40,7 +39,7 @@ def actualizar_mueble(id):
         return jsonify(mueble)
     return ("No encontrado", 404)
 
-# Eliminar un mueble
+# Eliminar 
 @app.route('/muebles/<int:id>', methods=['DELETE'])
 def eliminar_mueble(id):
     global muebles
