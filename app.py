@@ -19,7 +19,7 @@ def obtener_muebles():
 @app.route('/muebles/<int:id>', methods=['GET'])
 def obtener_mueble(id):
     mueble = next((m for m in muebles if m["id"] == id), None)
-    return jsonify(mueble) if mueble else ("No encontrado", 404)
+    return jsonify(mueble) if mueble else ("Error")
 
 # Agregar 
 @app.route('/muebles', methods=['POST'])
@@ -37,14 +37,14 @@ def actualizar_mueble(id):
         datos = request.get_json()
         mueble.update(datos)
         return jsonify(mueble)
-    return ("No encontrado", 404)
+    return ("Error")
 
 # Eliminar 
 @app.route('/muebles/<int:id>', methods=['DELETE'])
 def eliminar_mueble(id):
     global muebles
     muebles = [m for m in muebles if m["id"] != id]
-    return ("Eliminado correctamente", 204)
+    return ("Eliminado correctamente")
 
 if __name__ == '__main__':
     app.run(debug=True)
